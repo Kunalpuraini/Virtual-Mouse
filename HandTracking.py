@@ -5,7 +5,7 @@ import math
 import numpy as np
 
 
-class handDetector():
+class handDetector:
     def __init__(self, mode=False, maxHands=2, detectionCon=1, trackCon=0.5):
         self.mode = mode
         self.maxHands = maxHands
@@ -19,7 +19,7 @@ class handDetector():
         self.tipIds = [4, 8, 12, 16, 20]
 
     def findHands(self, img, draw=True):  # Finds all hands in a frame
-        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # because hands only uses RGB images
+        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # because hands only uses RGB images
         self.results = self.hands.process(imgRGB)
 
         if self.results.multi_hand_landmarks:
@@ -65,13 +65,11 @@ class handDetector():
 
         # Fingers
         for id in range(1, 5):
-
             if self.lmList[self.tipIds[id]][2] < self.lmList[self.tipIds[id] - 2][2]:
                 fingers.append(1)
             else:
                 fingers.append(0)
 
-        # totalFingers = fingers.count(1)
 
         return fingers
 
@@ -89,17 +87,3 @@ class handDetector():
 
         return length, img, [x1, y1, x2, y2, cx, cy]
 
-
-def main():
-    cap = cv2.VideoCapture(1)
-    detector = handDetector()
-    while True:
-        success, img = cap.read()
-        img = detector.findHands(img)
-
-        cv2.imshow("Image", img)
-        cv2.waitKey(1)
-
-
-if __name__ == "__main__":
-    main()
