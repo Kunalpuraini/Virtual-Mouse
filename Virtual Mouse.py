@@ -12,12 +12,14 @@ frameR = 100  # Frame Reduction
 smoothening = 8  # Smoothening Factor
 prev_x, prev_y = 0, 0  # Previous coordinates
 curr_x, curr_y = 0, 0  # Current coordinates
-cap = cv2.VideoCapture(0)  # Getting video feed from the webcam
-cap.set(3, width)  # Adjusting size
-cap.set(4, height)
+cap = cv2.VideoCapture(0)  # Getting video feed from the webcam and creating the videoCapture Object
+cap.set(3, width)  # Adjusting size , PropId->brightness, contrast,frame rate,
+                    # CV_CAP_PROP_FRAME_WIDTH->width of the frames in the video stream.
+cap.set(4, height)  # CV_CAP_PROP_FRAME_HEIGHT ->Height of the frames in the video stream.
 
 screen_width, screen_height = pyautogui.size()  # Getting the screen size
 detector = htm.handDetector(maxHands=1)  # Detecting one hand at max
+
 while True:
 
     success, img = cap.read()
